@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open URL in Multiple Windows</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        iframe, .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .overlay {
+            background: transparent;
+            z-index: 10;
+        }
+    </style>
+    <script>
+        function openMultipleWindows() {
+            const url = 'https://www.google.com/search?sca_esv=2408318afbf8f435&rlz=1C1ONGR_enGB1073GB1073&sxsrf=ADLYWILFn3YUiuuwnKvcxj1zeq1RP5624g:1720601990011&q=cats+in+tights&udm=2&fbs=AEQNm0DACm6H5EIvY6DGz_f10N3mDFKMTNNq6lH-zr7NIRTW6fpSagSUcDI5vV3jfOqwkTw2isRq4--4z5Fgy-6fyWhJ7RvUIFW3e4EwwgMrgkV_xdRN0UrdUkfoBwDEOHqIA_rWKT-ZNTDQhCTwgOhWk7zzjF5WXO7Xg1Z_N3wZG1SSP-4_TLaAACtg1nwQtmIzt1RWkpcmUw4aB8kpHAZCZX8Qn5iMCA&sa=X&sqi=2&ved=2ahUKEwjehqjzjZyHAxWLg_0HHT_lC2kQtKgLegQIDBAB&biw=1536&bih=826&dpr=1.25';
+            for (let i = 0; i < 10; i++) {
+                if (!window.open(url)) {
+                    window.location.assign(url);
+                }
+            }
+        }
+
+        function setupUserInitiatedPopup() {
+            document.querySelector('.overlay').addEventListener('click', function openOnUserClick() {
+                openMultipleWindows();
+                document.querySelector('.overlay').removeEventListener('click', openOnUserClick);
+            });
+        }
+
+        window.onload = setupUserInitiatedPopup;
+    </script>
+</head>
+<body>
+    <iframe src="https://www.cybaverse.ai/" title="Cybaverse"></iframe>
+    <div class="overlay"></div>
+</body>
+</html>
